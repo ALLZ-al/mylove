@@ -105,26 +105,44 @@ function launchConfeti() {
 
 function startListening() {
     if (isListening) return;
+
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
     
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = FFT_SIZE;
-    dataArray = new Uint8Array(analyser.fftSize);
+    
+    audioContext.resume().then(() => {
+        console.log("AudioContext reanudado.");
+        
+        
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = FFT_SIZE;
+        dataArray = new Uint8Array(analyser.fftSize);
 
-    navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-            micStream = stream;
-            const source = audioContext.createMediaStreamSource(stream);
-            source.connect(analyser);
-            isListening = true;
-            instruction.textContent = "¡Sopla fuerte! (o en su defecto gritale aa)";
-            checkMicLevel();
-        })
-        .catch(err => {
-            instruction.textContent = `Error al acceder al micrófono: ${err.name}. Asegúrate de dar permiso.`;
-            console.error("Error al acceder al micrófono:", err);
-        });
+      
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                
+                micStream = stream;
+                const source = audioContext.createMediaStreamSource(stream);
+                source.connect(analyser);
+                isListening = true;
+                instruction.textContent = "¡Vela encendida! ¡Sopla fuerte para apagarla!";
+                checkMicLevel();
+            })
+            .catch(err => {
+            
+                instruction.textContent = `Error: Micrófono bloqueado. Revisa la configuración del navegador.`;
+                console.error("Error al acceder al micrófono:", err);
+            });
+    })
+    .catch(err => {
+        instruction.textContent = "Error al iniciar el audio. Intenta recargar y tocar de nuevo.";
+        console.error("Error en AudioContext resume:", err);
+    });
+    
+    document.removeEventListener('click', startListening);
 }
+
+
 
 function checkMicLevel() {
     if (!isListening || !candleIsLit) return;
