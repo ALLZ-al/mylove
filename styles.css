@@ -1,0 +1,228 @@
+
+body {
+    background-color: #4e0f24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+    overflow-x: hidden; 
+}
+
+#app-container {
+    width: 95vw; 
+    max-width: 450px; 
+    text-align: center;
+}
+
+.torta {
+    position: relative;
+    top: 5vw; 
+}
+
+.mesa {
+    position: absolute;
+    width: 35vw; 
+    height: 2vw; 
+    border-radius: 100vw;
+    background-color: #6d4c41; 
+    left: 50%; 
+    transform: translateX(-50%);
+    top: 5vw; 
+    z-index: 1; 
+}
+
+.mesa::before {
+    content: "";
+    position: absolute;
+    width: 5vw;
+    height: 10vw; 
+    background-color: #5d4037; 
+    left: 45%; 
+    top: 2vw;
+}
+
+.mesa::after {
+    content: none; 
+}
+
+.sombra {
+    position: absolute;
+    width: 30vw; 
+    height: 2.5vw;
+    border-radius: 50%;
+    top: 15vw; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 0; 
+}
+
+.bisco {
+    position: absolute;
+    overflow: hidden;
+    width: 33vw; 
+    height: 20vw; 
+    background-color: #A51C30; 
+    left: 50%;
+    transform: translateX(-50%);
+    top: -15vw; 
+    border-radius: 4vw 4vw 0 0;
+    z-index: 2; 
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.bisco::after {
+    content: "";
+    position: absolute;
+    background-color: #F7F3E3; 
+
+    width: 100%; 
+    height: 8vw;
+    top: 0;
+    left: 0;
+}
+
+.bisco::before {
+    content: "";
+    position: absolute;
+    background-color: #F7F3E3; 
+    width: 50vw;
+    height: 3vw;
+    top: 12vw;
+    left: 0;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 6vw #A51C30; 
+}
+
+
+.relleno {
+    position: absolute;
+    background-color: #F7F3E3; 
+    width: 3vw;
+    height: 5vw; 
+    top: 5vw;
+    left: 0;
+    z-index: 2;
+    border-radius: 50vw; 
+    box-shadow: 
+        2.9vw  0vw #A51C30,  
+        9vw    1vw   #A51C30, 
+        15vw   0vw   #A51C30,  
+        21vw   0vw #A51C30,  
+        27vw   0vw   #A51C30,  
+     
+        5.9vw  0vw #F7F3E3,  
+        12vw   0vw   #F7F3E3,  
+        18vw   -1vw #F7F3E3,  
+        24vw   0vw   #F7F3E3, 
+        30vw   -0.1vw   #F7F3E3;  
+}
+
+
+
+.velita {
+    position: absolute;
+    width: 3vw;
+    height: 10vw; 
+    background-color: white;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -23vw; 
+    box-shadow: inset 0 -2vw #ffcc00;
+    z-index: 4;
+}
+
+.velita::before {
+    content: "";
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    background-color: orange;
+    top: 2vw;
+    box-shadow: 0 5vw orange;
+    left: 0;
+}
+
+.velita::after {
+    content: "";
+    position: absolute;
+    width: 0.5vw;
+    height: 3vw;
+    background-color: black;
+    top: -3vw;
+    left: 1.25vw;
+}
+
+.flama {
+    position: absolute;
+    opacity: 0.9;
+    background-color: orange;
+    width: 4vw;
+    height: 5vw;
+    top: -6vw;
+    left: -0.5vw;
+    border-radius: 50%;
+    animation: flama 0.5s infinite;
+    background-image: radial-gradient( rgba(238, 219, 219, 0.1),#4e0f24);
+}
+
+
+#flame.off {
+    background-color: rgb(173, 168, 168); 
+    border-radius: 50%; 
+    width: 0.8vw; 
+    height: 3vw;
+    box-shadow: none;
+    opacity: 1; 
+    top: -6vw;
+    left: 1.2vw;
+    animation: smoke-puff 1.5s ease-out forwards; 
+}
+
+@keyframes flama {
+    from, to {transform: scale(1,1);}
+    25% {transform: scale(0.9,1.1);}
+    50% {transform: scale(1.1,0.9);}
+    75% {transform: scale(0.95,1.05);}
+}
+
+@keyframes smoke-puff {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    
+    50% {
+        opacity: 0.4;
+        transform: translateY(-50%) scale(1.2); 
+    }
+    
+    100% {
+        opacity: 0; 
+        transform: translateY(-150%) scale(1.5); 
+    }
+}
+
+#instruction-message {
+    position: relative;
+    top: -30vw;
+    font-weight: bold;
+    color: #f1e9e9;
+    text-align: center;
+    margin-top: 15vw; 
+    margin-bottom: 2vw; 
+    z-index: 3; 
+}
+
+#confetti-canvas {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5; 
+    pointer-events: none; 
+}
+
